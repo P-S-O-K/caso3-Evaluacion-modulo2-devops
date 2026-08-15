@@ -1,0 +1,2 @@
+0 */2 * * * root /scripts/backup.sh
+0 */4 * * * root /scripts/cleanup.sh

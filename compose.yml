@@ -1,0 +1,35 @@
+services:
+
+  db:
+    build:
+      context: ./postgres
+    container_name: postgres-caso3
+    environment:
+      POSTGRES_PASSWORD: postgres123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_datos:/var/lib/postgresql/data
+    networks:
+      - red_postgres
+
+  backup:
+    build:
+      context: ./backup
+    container_name: postgres-backup
+    environment:
+      POSTGRES_PASSWORD: postgres123
+    depends_on:
+      - db
+    volumes:
+      - backups:/backups
+    networks:
+      - red_postgres
+
+volumes:
+  postgres_datos:
+  backups:
+
+networks:
+  red_postgres:
+    driver: bridge
